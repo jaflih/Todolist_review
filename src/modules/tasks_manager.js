@@ -12,61 +12,50 @@ export default class TasksManager {
   getTask = (index) => this.tasks[index - 1];
 
   addTask = (description, completed = false) => {
-    const newTask = new Task(this.tasks.length + 1, description, completed);
-    this.tasks.push(newTask);
+    this.tasks.push(new Task(this.tasks.length + 1, description, completed));
     StorageManager.save(this.tasks);
-    return newTask;
+    return this.getTask(this.tasks.length);
   };
 
   deleteTask = (index) => {
-    const newTasks = [];
     const taskIndex = index - 1;
-
-    this.tasks.forEach((task, index) => {
-      if (index < taskIndex) {
-        newTasks.push(task);
-      } else if (index > taskIndex) {
-        task.index = index;
-        newTasks.push(task);
-      }
-    });
-    this.tasks = newTasks;
+    this.tasks.splice(taskIndex, 1);
+    this.tasks
+      .filter((task) => task.index > taskIndex)
+      .forEach((task) => {
+        task.index -= 1;
+      });
     StorageManager.save(this.tasks);
   };
 
   updateTask = (index, description, completed) => {
-    this.tasks[index - 1].description = description;
-    this.tasks[index - 1].completed = completed;
+    this.getTask(index).description = description;
+    this.getTask(index).completed = completed;
     StorageManager.save(this.tasks);
-
-    return this.tasks[index - 1];
   };
 
   updateStatus = (index, status) => {
     StatusManager.updateStatus(this.getTask(index), status);
     StorageManager.save(this.tasks);
-    return this.getTask(index);
   };
 
   updateTasksPosition(tab) {
     const newTasks = [];
     tab.forEach((node) => {
-      const t = this.tasks[node.dataset.id - 1];
-      t.index = Number.parseInt(node.dataset.position, 10) + 1;
-      node.dataset.id = t.index;
-      newTasks.push(t);
+      const task = this.getTask(node.dataset.id);
+      task.index = Number.parseInt(node.dataset.position, 10) + 1;
+      node.dataset.id = task.index;
+      newTasks.push(task);
     });
     this.tasks = newTasks;
-
     StorageManager.save(this.tasks);
   }
 
   clearCompleted = () => {
-    this.tasks = this.tasks.filter((t) => t.completed === false);
+    this.tasks = this.tasks.filter((task) => task.completed === false);
     this.tasks.forEach((task, index) => {
       task.index = index + 1;
     });
     StorageManager.save(this.tasks);
-    return this.tasks;
   };
 }

@@ -1,4 +1,6 @@
-import { selector, hasClass, addClass, removeClass } from './tools.js';
+import {
+  selector, hasClass, addClass, removeClass,
+} from './tools.js';
 
 let dernierElementParcouru;
 
@@ -61,8 +63,8 @@ export default class DragAndDrop {
             if (item.id === elToMove.id) {
               item.dataset.position = min;
             } else {
-              const new_position = Number.parseInt(position, 10) + 1;
-              item.dataset.position = new_position;
+              const newPosition = Number.parseInt(position, 10) + 1;
+              item.dataset.position = newPosition;
             }
           }
         });
@@ -73,15 +75,15 @@ export default class DragAndDrop {
         dernierElementParcouru.after(elToMove);
 
         for (let i = 0; i < items.length; i += 1) {
-          const e = items[i];
-          const { position } = e.dataset;
+          const item = items[i];
+          const { position } = item.dataset;
 
           if (min <= position && position <= max) {
-            if (e.id === elToMove.id) {
-              e.dataset.position = max;
+            if (item.id === elToMove.id) {
+              item.dataset.position = max;
             } else {
-              const new_position = Number.parseInt(position, 10) - 1;
-              e.dataset.position = new_position;
+              const newPosition = Number.parseInt(position, 10) - 1;
+              item.dataset.position = newPosition;
             }
           }
         }

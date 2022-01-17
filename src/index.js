@@ -35,9 +35,6 @@ const displayTask = (parent, task) => {
   completedCheckbox.addEventListener('change', () => {
     updateStatus(task.index);
   });
-  completedCheckbox.addEventListener('click', () => {
-    deleteTask(task.index);
-  });
 
   const descriptionInput = createHtml(taskInput, 'input');
   descriptionInput.setAttribute('type', 'text');
