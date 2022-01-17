@@ -1,4 +1,6 @@
-import { selector, hasClass, addClass, removeClass } from './tools.js';
+import {
+  selector, hasClass, addClass, removeClass,
+} from './tools.js';
 
 let dernierElementParcouru;
 
