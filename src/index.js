@@ -12,36 +12,42 @@ const reset = (element) => {
 };
 
 const displayTask = (parent, task) => {
-  const taskDiv = createHtml(parent, 'li', 'task');
-  taskDiv.dataset.id = task.index;
-  taskDiv.id = `task_${task.index}`;
-  taskDiv.setAttribute('draggable', 'true');
-  taskDiv.setAttribute('data-effectallowed', 'move');
-  taskDiv.setAttribute('data-position', task.index - 1);
-  taskDiv.setAttribute('data-id', task.index);
+  const taskDiv = createHtml(parent, 'li', [
+    ['id', `task_${task.index}`],
+    ['class', 'task'],
+    ['draggable', 'true'],
+    ['data-effectallowed', 'move'],
+    ['data-position', task.index - 1],
+    ['data-id', task.index],
+  ]);
+
   taskDiv.addEventListener('dragstart', DragAndDrop.dragStartEvent);
   taskDiv.addEventListener('dragend', DragAndDrop.dragEndEvent);
 
-  const taskInput = createHtml(taskDiv, 'div', 'task_input');
+  const taskInput = createHtml(taskDiv, 'div', [['class', 'task_input']]);
   taskInput.addEventListener('keyup', (event) => {
     updateTask(event, task.index);
   });
 
-  const completedCheckbox = createHtml(taskInput, 'input');
-  completedCheckbox.setAttribute('type', 'checkbox');
-  completedCheckbox.setAttribute('class', `task_${task.index}_checkbox checkbox_task`);
-  completedCheckbox.id = `checkbox_task_${task.index}`;
-  completedCheckbox.dataset.id = task.index;
+  const completedCheckbox = createHtml(taskInput, 'input', [
+    ['id', `checkbox_task_${task.index}`],
+    ['type', 'checkbox'],
+    ['class', `task_${task.index}_checkbox checkbox_task`],
+    ['dataset.id', task.index],
+  ]);
+  completedCheckbox.checked = task.completed;
+
   completedCheckbox.addEventListener('change', () => {
     updateStatus(task.index);
   });
 
-  const descriptionInput = createHtml(taskInput, 'input');
-  descriptionInput.setAttribute('type', 'text');
-  descriptionInput.setAttribute('class', `task_${task.index} input_task`);
-  descriptionInput.dataset.id = task.index;
+  const descriptionInput = createHtml(taskInput, 'input', [
+    ['type', 'text'],
+    ['class', `task_${task.index} input_task`],
+    ['id', task.index],
+    ['id', `input_task_${task.index}`],
+  ]);
   descriptionInput.value = task.description;
-  descriptionInput.id = `input_task_${task.index}`;
   descriptionInput.addEventListener('keyup', (event) => {
     updateTask(event, task.index);
   });
@@ -49,31 +55,36 @@ const displayTask = (parent, task) => {
     updateTask(event, task.index, true);
   });
 
-  const removeIcon = createHtml(taskDiv, 'i', 'fas fa-ellipsis-v');
-  removeIcon.setAttribute('class', 'fas fa-trash');
-  removeIcon.id = `task_${task.index}`;
-  removeIcon.dataset.id = task.index;
+  const removeIcon = createHtml(taskDiv, 'i', [
+    ['class', 'fas fa-trash'],
+    ['id', `task_${task.index}`],
+    ['dataset.id', task.index],
+  ]);
+
   removeIcon.addEventListener('click', () => {
     deleteTask(task.index);
   });
 };
 
-const createHtml = (parent, tag, className, content = null) => {
+const createHtml = (parent, tag, attributes = null, content = null) => {
   const element = document.createElement(tag);
-  element.className = className;
   element.innerHTML = content;
+  const mapAttributes = new Map(attributes);
+  mapAttributes.forEach((value, key) => {
+    element.setAttribute(key, value);
+  });
   parent.appendChild(element);
   return element;
 };
 
-export const updateTask = (event, index, focus = false) => {
+const updateTask = (event, index, focus = false) => {
   if (event.key === 'Enter' || focus) {
     manager.updateTask(index, selector(`.task_${index}`).value, selector(`.task_${index}_checkbox`).checked);
     selector('.add_task input').focus();
   }
 };
 
-export const updateStatus = (index) => {
+const updateStatus = (index) => {
   manager.updateStatus(index, selector(`.task_${index}_checkbox`).checked);
   selector(`.task[data-id='${index}'] .input_task`).classList.toggle('completed');
 };
@@ -83,7 +94,7 @@ const display = () => {
   manager.getTasks().forEach((task) => displayTask(selector('.tasks'), task));
 };
 
-export const deleteTask = (index) => {
+const deleteTask = (index) => {
   manager.deleteTask(index);
   display();
 };
