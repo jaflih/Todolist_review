@@ -19,7 +19,6 @@ const displayTask = (parent, task) => {
   taskDiv.setAttribute('data-effectallowed', 'move');
   taskDiv.setAttribute('data-position', task.index - 1);
   taskDiv.setAttribute('data-id', task.index);
-
   taskDiv.addEventListener('dragstart', DragAndDrop.dragStartEvent);
   taskDiv.addEventListener('dragend', DragAndDrop.dragEndEvent);
 
@@ -28,36 +27,36 @@ const displayTask = (parent, task) => {
     updateTask(event, task.index);
   });
 
-  const input = createHtml(taskInput, 'input');
-  input.setAttribute('type', 'checkbox');
-  input.setAttribute('class', `task_${task.index}_checkbox checkbox_task`);
-  input.id = `checkbox_task_${task.index}`;
-  input.dataset.id = task.index;
-  input.addEventListener('change', () => {
+  const completedCheckbox = createHtml(taskInput, 'input');
+  completedCheckbox.setAttribute('type', 'checkbox');
+  completedCheckbox.setAttribute('class', `task_${task.index}_checkbox checkbox_task`);
+  completedCheckbox.id = `checkbox_task_${task.index}`;
+  completedCheckbox.dataset.id = task.index;
+  completedCheckbox.addEventListener('change', () => {
     updateStatus(task.index);
   });
-  input.addEventListener('click', () => {
+  completedCheckbox.addEventListener('click', () => {
     deleteTask(task.index);
   });
 
-  const input2 = createHtml(taskInput, 'input');
-  input2.setAttribute('type', 'text');
-  input2.setAttribute('class', `task_${task.index} input_task`);
-  input2.dataset.id = task.index;
-  input2.value = task.description;
-  input2.id = `input_task_${task.index}`;
-  input2.addEventListener('keyup', (event) => {
+  const descriptionInput = createHtml(taskInput, 'input');
+  descriptionInput.setAttribute('type', 'text');
+  descriptionInput.setAttribute('class', `task_${task.index} input_task`);
+  descriptionInput.dataset.id = task.index;
+  descriptionInput.value = task.description;
+  descriptionInput.id = `input_task_${task.index}`;
+  descriptionInput.addEventListener('keyup', (event) => {
     updateTask(event, task.index);
   });
-  input2.addEventListener('focusout', (event) => {
+  descriptionInput.addEventListener('focusout', (event) => {
     updateTask(event, task.index, true);
   });
 
-  const i = createHtml(taskDiv, 'i', 'fas fa-ellipsis-v');
-  i.setAttribute('class', 'fas fa-trash');
-  i.id = `task_${task.index}`;
-  i.dataset.id = task.index;
-  i.addEventListener('click', () => {
+  const removeIcon = createHtml(taskDiv, 'i', 'fas fa-ellipsis-v');
+  removeIcon.setAttribute('class', 'fas fa-trash');
+  removeIcon.id = `task_${task.index}`;
+  removeIcon.dataset.id = task.index;
+  removeIcon.addEventListener('click', () => {
     deleteTask(task.index);
   });
 };
