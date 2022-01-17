@@ -2,7 +2,7 @@ import {
   selector, hasClass, addClass, removeClass,
 } from './tools.js';
 
-let dernierElementParcouru;
+let lastElBrowsed;
 
 export default class DragAndDrop {
   static dragStartEvent = (evt) => {
@@ -26,7 +26,7 @@ export default class DragAndDrop {
 
   static dragOverEvent = (evt) => {
     if (hasClass(evt.target, 'task')) {
-      dernierElementParcouru = evt.target;
+      lastElBrowsed = evt.target;
     }
     evt.preventDefault();
   };
@@ -40,21 +40,21 @@ export default class DragAndDrop {
       const elToMove = selector(`#${dt.getData('tex/html')}`);
       const items = document.querySelectorAll('.task');
 
-      if (elToMove.dataset.position - dernierElementParcouru.dataset.position === 1) {
+      if (elToMove.dataset.position - lastElBrowsed.dataset.position === 1) {
         const old = elToMove.dataset.position;
-        dernierElementParcouru.before(elToMove);
-        elToMove.dataset.position = dernierElementParcouru.dataset.position;
-        dernierElementParcouru.dataset.position = old;
-      } else if (elToMove.dataset.position - dernierElementParcouru.dataset.position === -1) {
-        dernierElementParcouru.after(elToMove);
+        lastElBrowsed.before(elToMove);
+        elToMove.dataset.position = lastElBrowsed.dataset.position;
+        lastElBrowsed.dataset.position = old;
+      } else if (elToMove.dataset.position - lastElBrowsed.dataset.position === -1) {
+        lastElBrowsed.after(elToMove);
         const old = elToMove.dataset.position;
-        elToMove.dataset.position = dernierElementParcouru.dataset.position;
-        dernierElementParcouru.dataset.position = old;
-      } else if (elToMove.dataset.position - dernierElementParcouru.dataset.position > 1) {
-        const min = dernierElementParcouru.dataset.position;
+        elToMove.dataset.position = lastElBrowsed.dataset.position;
+        lastElBrowsed.dataset.position = old;
+      } else if (elToMove.dataset.position - lastElBrowsed.dataset.position > 1) {
+        const min = lastElBrowsed.dataset.position;
         const max = elToMove.dataset.position;
 
-        dernierElementParcouru.before(elToMove);
+        lastElBrowsed.before(elToMove);
 
         items.forEach((item) => {
           const { position } = item.dataset;
@@ -68,11 +68,11 @@ export default class DragAndDrop {
             }
           }
         });
-      } else if (elToMove.dataset.position - dernierElementParcouru.dataset.position < 1) {
-        const max = dernierElementParcouru.dataset.position;
+      } else if (elToMove.dataset.position - lastElBrowsed.dataset.position < 1) {
+        const max = lastElBrowsed.dataset.position;
         const min = elToMove.dataset.position;
 
-        dernierElementParcouru.after(elToMove);
+        lastElBrowsed.after(elToMove);
 
         for (let i = 0; i < items.length; i += 1) {
           const item = items[i];
@@ -89,7 +89,7 @@ export default class DragAndDrop {
         }
       }
 
-      removeClass(dernierElementParcouru, 'dragSurvol');
+      removeClass(lastElBrowsed, 'dragSurvol');
     }
   };
 }
