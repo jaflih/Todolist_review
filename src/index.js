@@ -12,7 +12,7 @@ const reset = (element) => {
 };
 
 const displayTask = (parent, task) => {
-  const taskDiv = createHtml(parent, 'div', 'task');
+  const taskDiv = createHtml(parent, 'li', 'task');
   taskDiv.dataset.id = task.index;
   taskDiv.id = `task_${task.index}`;
   taskDiv.setAttribute('draggable', 'true');
