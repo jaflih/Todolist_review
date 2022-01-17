@@ -4,7 +4,7 @@ import TasksManager from './modules/tasks_manager.js';
 import { selector } from './modules/tools.js';
 import DragAndDrop from './modules/drag_and_drop.js';
 
-const input = selector('input');
+const addTaskInput = selector('input');
 const manager = new TasksManager();
 
 const reset = (element) => {
@@ -92,9 +92,9 @@ export const deleteTask = (index) => {
 };
 
 const createTask = () => {
-  const task = manager.addTask(input.value);
+  const task = manager.addTask(addTaskInput.value);
   displayTask(selector('.tasks'), task);
-  input.value = '';
+  addTaskInput.value = '';
   selector(`#input_task_${task.index}`).focus();
 };
 
@@ -103,7 +103,7 @@ selector('.footer').addEventListener('click', () => {
   display();
 });
 
-input.addEventListener('keyup', ({ key }) => {
+addTaskInput.addEventListener('keyup', ({ key }) => {
   if (key === 'Enter') {
     createTask();
   }

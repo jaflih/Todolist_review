@@ -22,12 +22,12 @@ export default class TasksManager {
     const newTasks = [];
     const taskIndex = index - 1;
 
-    this.tasks.forEach((t, i) => {
-      if (i < taskIndex) {
-        newTasks.push(t);
-      } else if (i > taskIndex) {
-        t.index = i;
-        newTasks.push(t);
+    this.tasks.forEach((task, index) => {
+      if (index < taskIndex) {
+        newTasks.push(task);
+      } else if (index > taskIndex) {
+        task.index = index;
+        newTasks.push(task);
       }
     });
     this.tasks = newTasks;
