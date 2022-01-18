@@ -1,0 +1,51 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "> \"To-do list\" is a tool that helps to organize your day. It simply lists the things that you need to do and allows you to mark them as complete.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "lcss": "stylelint '**/*.{css,scss}'",
+    "lfcss": "stylelint '**/*.{css,scss}' --fix",
+    "lhtml": "npx hint .",
+    "ljs": "npx eslint .",
+    "lfjs": "npx eslint . --fix",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jihaneH/TodoList.git"
+  },
+  "keywords": [],
+  "author": "Jihane Haddad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jihaneH/TodoList/issues"
+  },
+  "homepage": "https://jihaneh.github.io/TodoList/",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^6.5.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.4",
+    "hint": "^6.1.9",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "^3.21.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  },
+  "dependencies": {
+    "gh-pages": "^3.2.3",
+    "lodash": "^4.17.21"
+  }
+}
