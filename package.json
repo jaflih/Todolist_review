@@ -1,5 +1,5 @@
 {
-  "name": "todolist",
+  "name": "todolist_review",
   "version": "1.0.0",
   "description": "> \"To-do list\" is a tool that helps to organize your day. It simply lists the things that you need to do and allows you to mark them as complete.",
   "main": "index.js",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jihaneH/TodoList.git"
+    "url": "git+https://github.com/jihaneH/Todolist_review.git"
   },
   "keywords": [],
   "author": "Jihane Haddad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jihaneH/TodoList/issues"
+    "url": "https://github.com/jihaneH/Todolist_review/issues"
   },
-  "homepage": "https://jihaneh.github.io/TodoList/",
+  "homepage": "https://jihaneh.github.io/Todolist_review/",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.5.1",
