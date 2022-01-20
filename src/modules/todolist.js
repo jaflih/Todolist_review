@@ -21,7 +21,7 @@ export default class Todolist {
       }
     });
 
-    selector('.fa-plus').addEventListener('click', () => createTask());
+    selector('.fa-plus').addEventListener('click', () => this.createTask());
 
     const depot = document.querySelector('.depot');
     depot.addEventListener('dragenter', DragAndDrop.dragEnterEvent);
